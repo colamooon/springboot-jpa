@@ -1,0 +1,82 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+}
+
+group = 'com.colamoon.app'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '13'
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    querydsl.extendsFrom compileClasspath
+}
+
+repositories {
+    mavenCentral()
+}
+bootJar {
+    launchScript()
+}
+
+dependencies {
+
+    implementation 'com.nimbusds:nimbus-jose-jwt:8.4'
+    implementation 'com.querydsl:querydsl-apt:4.2.2'
+    implementation 'com.querydsl:querydsl-jpa:4.2.2'
+
+    implementation 'org.ehcache:ehcache:3.8.1'
+    implementation 'javax.cache:cache-api:1.1.1'
+    implementation 'org.apache.commons:commons-lang3'
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'mysql:mysql-connector-java'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'io.projectreactor:reactor-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+apply plugin: "com.ewerk.gradle.plugins.querydsl"
+apply plugin: 'java'
+apply plugin: 'idea'
+
+def querydslSrcDir = 'src/main/generated'
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}
+
+querydsl {
+    library = "com.querydsl:querydsl-apt"
+    jpa = true
+    querydslSourcesDir = querydslSrcDir
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs('src/main/java', querydslSrcDir)
+        }
+    }
+}
