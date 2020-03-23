@@ -22,7 +22,7 @@ import static java.util.stream.Collectors.toList;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Entity
-@Table(name = "member")
+@Table(name = "member_cola")
 public class Auth extends BaseEntity implements UserDetails {
 
     @Column(unique = true)
