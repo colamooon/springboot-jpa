@@ -19,7 +19,7 @@ public class AuthRouter {
     @Bean
     public RouterFunction<ServerResponse> authRouterFunction(AuthHandler handler) {
         return RouterFunctions
-                 .nest(path("/auth"),
+                 .nest(path("/auth/v1"),
                          route(GET("/signin"), handler::signIn)
                 );
     }

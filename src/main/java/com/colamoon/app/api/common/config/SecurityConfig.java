@@ -35,9 +35,8 @@ public class SecurityConfig {
 
     private final AuthService authService;
     private final String[] permitAllArry = {
-            "/auth/signup",
-            "/auth/signinsns",
-//            "/api/apple",
+            "/auth/v1/signup",
+            "/auth/v1/signinsns",
     };
 
     public SecurityConfig(AuthService authService) {
@@ -56,22 +55,19 @@ public class SecurityConfig {
         http
                 .cors().and()
                 .csrf().disable()
-//                .formLogin().disable()
                 .authorizeExchange()
                 .pathMatchers(permitAllArry).permitAll()
                 .and()
                 .authorizeExchange()
-                .pathMatchers("/auth/signin")
+                .pathMatchers("/auth/v1/signin")
                 .authenticated()
                 .and()
                 .addFilterAt(basicAuthenticationFilter(), SecurityWebFiltersOrder.HTTP_BASIC)
                 .authorizeExchange()
                 .pathMatchers("/api/**")
-//                .permitAll()
                 .authenticated()
                 .and()
                 .addFilterAt(bearerAuthenticationFilter(), SecurityWebFiltersOrder.AUTHENTICATION);
-
         return http.build();
     }
 
