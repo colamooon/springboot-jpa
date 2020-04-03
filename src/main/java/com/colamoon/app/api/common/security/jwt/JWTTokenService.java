@@ -48,7 +48,7 @@ public class JWTTokenService {
 //        log.debug("]-----] auth [-----[ {}", auth);
         claimsSet = new JWTClaimsSet.Builder()
                 .subject(subject)
-                .issuer("colabyhinter.com")
+                .issuer("colamoon.com")
                 .expirationTime(new Date(getExpiration()))
 //                .claim("roles", "ADMIN")
                 .claim("roles", authorities
