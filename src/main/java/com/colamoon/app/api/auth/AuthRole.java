@@ -13,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Entity
-@Table(name = "frog_auth_role", uniqueConstraints = @UniqueConstraint(columnNames = {"auth_id", "role_id"}))
+@Table(name = "cola_auth_role", uniqueConstraints = @UniqueConstraint(columnNames = {"auth_id", "role_id"}))
 public class AuthRole extends BaseEntity {
 
     @Column(name = "auth_id")

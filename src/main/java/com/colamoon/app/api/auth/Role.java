@@ -13,7 +13,7 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@Entity(name = "frog_role")
+@Entity(name = "cola_role")
 public class Role extends BaseEntity {
 
     @Column(unique = true)

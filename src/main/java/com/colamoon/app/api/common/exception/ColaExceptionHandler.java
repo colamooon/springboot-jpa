@@ -30,13 +30,13 @@ public class ColaExceptionHandler implements WebExceptionHandler {
         exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
         exchange.getResponse().getHeaders().setAccessControlAllowOrigin("*");
         if (ex instanceof ColaException) {
-            ColaException frogException = (ColaException) ex;
+            ColaException colaException = (ColaException) ex;
 
-            exchange.getResponse().setStatusCode(frogException.getHttpStatus());
-            ColaErrors errors = new ColaErrors(frogException.getErrorMessagerCode().getCode(), frogException.getErrorMessagerCode().getResponseValue());
-            if (frogException.getErrors() != null) {
-                if (frogException.getErrors().size() > 0) {
-                    frogException.getErrors().forEach(e -> errors.add(e.getPath(), e.getCode(), e.getMessage()));
+            exchange.getResponse().setStatusCode(colaException.getHttpStatus());
+            ColaErrors errors = new ColaErrors(colaException.getErrorMessagerCode().getCode(), colaException.getErrorMessagerCode().getResponseValue());
+            if (colaException.getErrors() != null) {
+                if (colaException.getErrors().size() > 0) {
+                    colaException.getErrors().forEach(e -> errors.add(e.getPath(), e.getCode(), e.getMessage()));
                 }
             }
 
